@@ -2,270 +2,152 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nilphamari District Police</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nilphamari District Police | Phonebook</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg: #f8fafc;
-            --header-bg: rgba(255, 255, 255, 0.95);
-            --sidebar-bg: #0f172a;
+            --primary: #2563eb;
+            --fb-color: #1877F2;
+            --bg: #f1f5f9;
             --card-bg: #ffffff;
-            --text-main: #1e293b;
+            --text-main: #0f172a;
             --text-muted: #64748b;
-            --accent: #2563eb;
             --border: #e2e8f0;
-            --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            --danger: #ef4444;
+            --header-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .dark-mode {
-            --bg: #020617;
-            --header-bg: rgba(15, 23, 42, 0.95);
-            --sidebar-bg: #000000;
+            --bg: #0f172a;
             --card-bg: #1e293b;
-            --text-main: #f1f5f9;
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent: #38bdf8;
             --border: #334155;
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            --header-bg: rgba(15, 23, 42, 0.9);
         }
 
-        * { 
-            margin: 0; padding: 0; box-sizing: border-box; 
-            transition: background 0.3s, color 0.3s;
-            font-family: 'Hind Siliguri', sans-serif;
-        }
-
-        body { background: var(--bg); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
+        body { background: var(--bg); color: var(--text-main); transition: 0.3s; }
 
         header {
-            background: var(--header-bg); backdrop-filter: blur(15px);
+            background: var(--header-bg); backdrop-filter: blur(10px);
             padding: 12px 20px; display: flex; align-items: center; justify-content: space-between;
             position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border);
         }
 
-        .left-side { display: flex; align-items: center; gap: 12px; }
-        .hamburger { font-size: 26px; cursor: pointer; color: var(--text-main); }
-        .app-brand { font-weight: 800; font-size: 1.1rem; color: var(--accent); }
+        .logo-section { display: flex; align-items: center; gap: 10px; }
+        .logo-img { width: 35px; height: 35px; }
+        .brand-name { font-weight: 700; font-size: 1rem; }
 
-        .nav-actions { display: flex; align-items: center; gap: 8px; }
-        .icon-btn {
-            background: transparent; border: none; width: 40px; height: 40px; 
-            border-radius: 12px; cursor: pointer; display: flex; align-items: center; 
-            justify-content: center; font-size: 1.2rem; position: relative;
-            color: var(--text-main);
-        }
-        
-        /* Floating Search - Fixed Position */
-        .search-container {
-            position: fixed; 
-            top: 125px; right: 0; width: 100%; padding: 10px 20px;
-            background: var(--header-bg); border-bottom: 1px solid var(--border);
-            display: none; transform: translateY(-10px);
-            z-index: 999; 
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        .search-container.active { display: block; transform: translateY(0); }
-        .search-box input {
-            width: 100%; padding: 12px 20px; border-radius: 10px; border: 1px solid var(--accent);
-            background: var(--card-bg); color: var(--text-main); outline: none; font-size: 1rem;
+        .top-actions { display: flex; gap: 18px; align-items: center; }
+        .icon-btn { cursor: pointer; font-size: 18px; color: var(--text-main); position: relative; transition: 0.2s; }
+        #noticeBadge { position: absolute; top: -5px; right: -5px; background: red; width: 8px; height: 8px; border-radius: 50%; display: none; border: 1px solid white; }
+
+        .fb-fab {
+            position: fixed; bottom: 30px; right: 25px; 
+            width: 60px; height: 60px; background: var(--fb-color);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 28px; cursor: pointer; z-index: 999;
+            box-shadow: 0 8px 16px rgba(24, 119, 242, 0.3); text-decoration: none;
         }
 
-        .badge {
-            position: absolute; top: 5px; right: 5px; background: var(--danger);
-            color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; display: none;
+        .search-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+        .search-box { 
+            position: relative; background: var(--card-bg); border-radius: 15px;
+            box-shadow: var(--shadow); border: 1px solid var(--border);
         }
+        .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary); }
+        .search-box input { width: 100%; padding: 14px 14px 14px 45px; border: none; background: transparent; outline: none; color: var(--text-main); font-size: 1rem; }
 
-        /* Sidebar Styling */
-        .sidebar {
-            position: fixed; left: -300px; top: 0; width: 280px; height: 100%;
-            background: var(--sidebar-bg); z-index: 1100; transition: 0.4s ease; padding: 30px 20px;
-            overflow-y: auto;
-        }
-        .sidebar.active { left: 0; }
-        .sidebar a {
-            display: block; padding: 12px 18px; color: #cbd5e1;
-            text-decoration: none; border-radius: 10px; margin-bottom: 5px; font-weight: 500;
-        }
-        .sidebar a:hover { background: #1e293b; color: var(--accent); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 15px 100px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 15px; }
 
-        /* Social Buttons Styling */
-        .social-links { margin-top: 20px; padding-top: 20px; border-top: 1px solid #334155; display: flex; flex-direction: column; gap: 10px; }
-        .social-btn {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            padding: 12px; border-radius: 12px; text-decoration: none; font-weight: 600;
-            font-size: 0.9rem; transition: 0.3s; color: white !important;
-        }
-        .fb-btn { background: #1877F2; box-shadow: 0 4px 12px rgba(24, 119, 242, 0.2); }
-        .wa-btn { background: #25D366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); }
-        .social-btn:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); display: none; z-index: 1050;
-        }
-        .overlay.active { display: block; }
-
-        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-        
+        /* পলিটিক্যাল/পুলিশ ডিরেক্টরি কার্ড ডিজাইন */
         .p-card {
             background: var(--card-bg); border-radius: 20px; padding: 20px;
-            border: 1px solid var(--border); box-shadow: var(--card-shadow);
-            display: flex; flex-direction: column;
+            border: 1px solid var(--border); box-shadow: var(--shadow);
+            display: flex; flex-direction: column; transition: 0.3s;
         }
-        .p-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .p-img { width: 70px; height: 70px; border-radius: 14px; object-fit: cover; border: 2px solid var(--border); }
-        .p-info { background: rgba(0,0,0,0.03); border-radius: 12px; padding: 12px; margin-bottom: 15px; flex-grow: 1; }
-        .info-item { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
-        .val { font-weight: 600; color: var(--text-main); text-align: right; }
-        .call-btn { background: var(--accent); color: white; padding: 12px; border-radius: 12px; text-decoration: none; text-align: center; font-weight: 700; display: block; border: none; }
 
-        .modal {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 95%; max-width: 550px; background: var(--card-bg); z-index: 2000;
-            padding: 20px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); display: none;
-        }
-        .iframe-container { width: 100%; height: 450px; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
-        iframe { width: 100%; height: 100%; border: none; }
+        .p-header { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+        .p-img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; background: #eee; border: 2px solid var(--bg); }
+        .p-title-group h3 { font-size: 1.1rem; font-weight: 700; margin: 0; }
+        .rank-tag { display: inline-block; padding: 2px 8px; background: rgba(37, 99, 235, 0.1); color: var(--primary); border-radius: 6px; font-size: 0.85rem; font-weight: 600; margin-top: 3px; }
 
-        .section { display: none; }
-        .section.active { display: block; }
+        /* অতিরিক্ত তথ্য দেখানোর এরিয়া */
+        .info-container { background: var(--bg); border-radius: 12px; padding: 12px; margin-top: 10px; }
+        .info-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        .info-row:last-child { border: none; }
+        .label { color: var(--text-muted); font-weight: 500; }
+        .value { color: var(--text-main); font-weight: 600; text-align: right; }
 
-        /* LOADING ANIMATION CSS START */
-        #loader { 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 20px;
-            min-height: 50vh;
-        }
+        .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn { padding: 12px; border-radius: 12px; border: none; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; text-decoration: none; font-size: 0.9rem; }
+        .btn-call { background: var(--primary); color: white; }
+        .btn-wa { background: #22c55e; color: white; }
+
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: none; z-index: 2000; }
+        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 400px; background: var(--card-bg); z-index: 2100; padding: 25px; border-radius: 20px; display: none; }
+        .modal.active, .overlay.active { display: block; }
+
+        .sidebar { position: fixed; left: -280px; top: 0; width: 260px; height: 100%; background: var(--card-bg); z-index: 3000; padding: 30px 20px; transition: 0.3s; box-shadow: 10px 0 30px rgba(0,0,0,0.1); }
+        .sidebar.active { left: 0; }
+        .menu-item { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 10px; cursor: pointer; margin-bottom: 5px; font-weight: 600; color: var(--text-main); text-decoration: none; }
         
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(0, 0, 0, 0.1);
-            border-bottom-color: var(--accent);
-            border-radius: 50%;
-            display: inline-block;
-            box-sizing: border-box;
-            animation: rotation 1s linear infinite;
-            margin-bottom: 15px;
-        }
-
-        /* Dark mode compatibility for spinner track */
-        .dark-mode .spinner {
-            border-color: rgba(255, 255, 255, 0.1);
-            border-bottom-color: var(--accent);
-        }
-
-        .loading-text {
-            font-weight: 600;
-            color: var(--accent);
-            font-size: 1.1rem;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes rotation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-        /* LOADING ANIMATION CSS END */
-
-        .dev-avatar {
-            width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
-            border: 4px solid var(--accent); margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+        #loader { text-align: center; padding: 40px; grid-column: 1/-1; }
     </style>
 </head>
 <body>
 
     <header>
-       <header class="header-nav">
- <div class="hamburger" onclick="toggleSide()" title="Open Menu">
-        <img src="https://images.seeklogo.com/logo-png/61/1/bangladesh-police-logo-png_seeklogo-618305.png" 
-             alt="Logo" 
-             class="dev-avatar">
-    </header>
-            <div class="app-brand">নীলফামারী জেলা পুলিশ</div>
+        <div class="logo-section">
+            <div onclick="toggleSidebar()" class="icon-btn"><i class="fa-solid fa-bars-staggered"></i></div>
+            <img src="https://images.seeklogo.com/logo-png/61/1/bangladesh-police-logo-png_seeklogo-618305.png" class="logo-img">
+            <div class="brand-name"> জেলা পুলিশ নীলফামারী</div>
         </div>
-        <div class="nav-actions">
-            <button class="icon-btn" onclick="toggleSearch()">🔍</button>
-            <button class="icon-btn" onclick="openNotice()">
-                🔔 <span class="badge" id="noticeBadge">১</span>
-            </button>
-            <button class="icon-btn" onclick="toggleDark()" id="modeIcon">🌙 </button>
-        </div>
-
-        <div class="search-container" id="searchContainer">
-            <div class="search-box">
-                <input type="text" id="q" placeholder="নাম, পদবী বা নাম্বার সার্চ করুন..." onkeyup="filter()">
+        <div class="top-actions">
+            <div onclick="openModal('noticeModal')" class="icon-btn">
+                <i class="fa-solid fa-bell"></i>
+                <span id="noticeBadge"></span>
             </div>
+            <div onclick="location.reload()" class="icon-btn"><i class="fa-solid fa-rotate-right"></i></div>
+            <div onclick="toggleDarkMode()" class="icon-btn"><i class="fa-solid fa-moon" id="themeIcon"></i></div>
         </div>
     </header>
 
-    <div class="overlay" id="overlay" onclick="closeAll()"></div>
-    
-    <nav class="sidebar" id="sidebar">
-    <div style=" padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--border);">
-                <img src="https://images.seeklogo.com/logo-png/61/1/bangladesh-police-logo-png_seeklogo-618305.png" alt="Dev" class="dev-avatar"" text-aline="center">
-        <h2 style="color: orange; margin-bottom: 25px;">নীলফামারী জেলা পুলিশ</h2>
-        <a href="#" onclick="showPage('home')">📋 ড্যাশবোর্ড</a>
-        <a href="#" onclick="openComplaint()">📝 অভিযোগ বক্স</a>
-        <a href="#" onclick="openNotice()">🔊 নোটিফিকেশন</a>
-        <a href="#" onclick="showPage('about')">🛡️ শর্তাবলী</a>
-        <a href="#" onclick="showPage('dev')">🛠️ Developer</a>
-        
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/1FibQ9kmYf/" target="_blank" class="social-btn fb-btn">
-                <i class="fab fa-facebook-f"></i> ফেসবুক পেজ
-            </a>
-            <a href="tel:+8801320-100298" target="_blank" class="social-btn call-btn">
-                <i class="fab fa-call-btn-f"></i>📞পুলিশ কন্ট্রোল রুম নীলফামারী
-            </a>
-        </div>
-
-        <a href="#" onclick="location.reload()" style="color: orange; margin-top: 20px; font-weight: bold;">♻️ রিফ্রেশ করুন</a>
-        <div style="color: orange; margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">•©নীলফামারী জেলা পুলিশ | সর্বস্বত্ব সংরক্ষিত।</div>
-    </nav>
-
-    <div class="modal" id="complaintModal">
-        <h2>অভিযোগ বক্স</h2>
-        <div class="iframe-container">
-            <iframe src="https://forms.gle/9VwzxkWjVrLedCSN8">লোড হচ্ছে...</iframe>
-        </div>
-        <button class="call-btn" style="margin-top: 15px; background: var(--sidebar-bg);" onclick="closeAll()">বন্ধ করুন</button>
+    <div class="sidebar" id="sidebar">
+        <h3 style="margin-bottom: 20px; color: var(--primary);">মেনুবার</h3>
+        <div class="menu-item" onclick="location.reload()"><i class="fa-solid fa-house"></i> ড্যাশবোর্ড</div>
+        <a href="https://forms.gle/9VwzxkWjVrLedCSN8" target="_blank" class="menu-item"><i class="fa-solid fa-comment-dots"></i> পরামর্শ বা অভিযোগ</a>
+        <div class="menu-item" onclick="openModal('termsModal')"><i class="fa-solid fa-shield-halved"></i> ব্যবহারের শর্তাবলী</div>
+        <div class="menu-item" onclick="openModal('devModal')"><i class="fa-solid fa-code"></i> ডেভেলপার ক্রেডিট</div>
+        <div style="color: black; margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">• জেলা পুলিশ নীলফামারী | সর্বস্বত্ব সংরক্ষিত | 2026•</div>
     </div>
 
-    <div class="modal" id="noticeModal">
-        <h2 id="noticeTitle">নোটিশ</h2>
-        <div id="noticeMsg" style="margin-bottom: 20px; white-space: pre-wrap;">লোড হচ্ছে...</div>
-        <button class="call-btn" onclick="closeAll()">বন্ধ করুন</button>
+    <div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+    <a href="https://www.facebook.com/share/1FibQ9kmYf/" target="_blank" class="fb-fab">
+        <i class="fa-brands fa-facebook-f"></i>
+    </a>
+
+    <div class="search-container">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="q" placeholder="নাম, পদবী বা মোবাইল দিয়ে খুঁজুন..." onkeyup="filter()">
+        </div>
     </div>
 
     <main class="container">
-        <section id="home" class="section active">
-            <div id="loader">
-                <span class="spinner"></span>
-                <span class="loading-text">Nilphamari District Police</span>
-            </div>
-            <div id="grid" class="grid"></div>
-        </section>
+        <div id="grid" class="grid">
+            <div id="loader">তথ্য লোড হচ্ছে, দয়া করে অপেক্ষা করুন...</div>
+        </div>
+    </main>
 
-        <section id="about" class="section">
-            <div style="background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid var(--border);">
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
-                <p>নীলফামারী জেলা পুলিশে কর্মরত পুলিশ সদস্যদের ডিজিটাল ফোনবুক।</p>
+    <div class="modal" id="noticeModal"><h3>অফিসিয়াল নোটিশ</h3><div id="noticeMsg" style="margin:15px 0;">নোটিশ নেই।</div><button class="btn btn-call" style="width:100%" onclick="closeAll()">ঠিক আছে</button></div>
+    <div class="modal" id="termsModal"><h3>শর্তাবলী</h3><p style="margin:15px 0;">১. দাপ্তরিক কাজে ব্যবহার্য। ২. গোপনীয়তা বজায় রাখুন।</p><p> জেলা পুলিশ নীলফামারীতে কর্মরত পুলিশ সদস্যদের ডিজিটাল ফোনবুক।</p>
                 <br>
                 <h2>সিস্টেমের কার্যকারিতা</h2>
                 <hr style="margin: 15px 0; opacity: 0.1;">
@@ -275,146 +157,135 @@
                 <li><strong>অফলাইন ফিলিং:</strong> একবার লোড হলে ইন্টারনেটে ধীরগতি থাকলেও সার্চ কাজ করবে।</li>
                     <li><strong>ওয়ান ট্যাপ কল:</strong> নাম্বারে চাপ দিলেই কল যাবে।</li>
                     <li><strong>অটো সিঙ্ক:</strong> ডাটাবেজ আপডেট হওয়ার সাথে সাথে অ্যাপ আপডেট হবে।</li>
-                <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">•©নীলফামারী জেলা পুলিশ | সর্বস্বত্ব সংরক্ষিত।</div>
+                <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">•© জেলা পুলিশ নীলফামারী | সর্বস্বত্ব সংরক্ষিত।</div><button class="btn btn-call" style="width:100%" onclick="closeAll()">বন্ধ করুন</button></div>
+    <div class="modal" id="devModal"><div style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 30px;">
+                <i class="fa-solid fa-user-tie"></i>
             </div>
-        </section>
-        
-        <section id="dev" class="section">
-            <div style="background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--border);">
-                <img src="https://img.icons8.com/bubbles/500/administrator-male.png" alt="Dev" class="dev-avatar">
-                <h3>মোঃ মেহেদী হাসান</h3>
-                <p> নীলফামারী জেলা পুলিশের অভ্যন্তরীণ যোগাযোগ ব্যবস্থা উন্নত করার লক্ষ্যে তৈরি করা হয়েছে। আধুনিক প্রযুক্তি ব্যবহার করে সেবাকে আরও গতিশীল করাই আমাদের লক্ষ্য।</p>
+            <h2>ডেভেলপার ক্রেডিট</h2>
+            <p style="margin: 10px 0; color: var(--text-muted);">এই স্মার্ট ডিরেক্টরি সিস্টেমটি তৈরি ও রক্ষণাবেক্ষণ করেছেন:</p>
+            <h3 style="color: var(--primary);">মোঃ মেহেদী হাসান</h3>
+            <p> জেলা পুলিশ নীলফামারীর অভ্যন্তরীণ যোগাযোগ ব্যবস্থা উন্নত করার লক্ষ্যে তৈরি করা হয়েছে। আধুনিক প্রযুক্তি ব্যবহার করে সেবাকে আরও গতিশীল করাই আমাদের লক্ষ্য।</p>
             <div style="margin-top: 20px;">
-                <p><strong>নীলফামারী জেলা পুলিশ </strong></p>
+                <p><strong> জেলা পুলিশ নীলফামারী </strong></p>
                 <p>ভার্সন: ২.০ (স্মার্ট ডিরেক্টরি এডিশন)</p>
             </div>
-                <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">©নীলফামারী জেলা পুলিশ | সর্বস্বত্ব সংরক্ষিত।</div>
+                <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">© জেলা পুলিশ নীলফামারী | সর্বস্বত্ব সংরক্ষিত।</div>
+            <div style="margin-top: 15px; display: flex; justify-content: center; gap: 15px;">
+                <i class="fa-brands fa-facebook" style="font-size: 24px; color: #1877F2;"></i>
+                <i class="fa-brands fa-whatsapp" style="font-size: 24px; color: #25D366;"></i>
             </div>
-        </section>
-    </main>
+        </div><button class="btn btn-call" style="width:100%; margin-top:15px;" onclick="closeAll()">বন্ধ করুন</button></div>
 
     <script>
         const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxGSffjMnTMg_i_Mp0vJCsbFSTp3KFlnjGIVnG2c5Awau9HYgsEJ9Cwpq-AlEzm5dFw/exec';
 
-        function toggleSearch() {
-            const sc = document.getElementById('searchContainer');
-            sc.classList.toggle('active');
-            if(sc.classList.contains('active')) document.getElementById('q').focus();
-        }
-
-        function toggleDark() {
+        function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('modeIcon').innerText = isDark ? '☀️' : '🌙';
+            document.getElementById('themeIcon').className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
 
-        function toggleSide() {
-            document.getElementById('sidebar').classList.toggle('active');
+        function toggleSidebar() { 
+            document.getElementById('sidebar').classList.toggle('active'); 
             document.getElementById('overlay').classList.toggle('active');
         }
 
-        function openNotice() {
+        function openModal(id) {
             closeAll();
-            document.getElementById('noticeModal').style.display = 'block';
-            document.getElementById('overlay').classList.add('active');
-            document.getElementById('noticeBadge').style.display = 'none';
-        }
-
-        function openComplaint() {
-            closeAll();
-            document.getElementById('complaintModal').style.display = 'block';
+            document.getElementById(id).classList.add('active');
             document.getElementById('overlay').classList.add('active');
         }
 
         function closeAll() {
-            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-            document.getElementById('sidebar').classList.remove('active');
-            document.getElementById('overlay').classList.remove('active');
-            document.getElementById('searchContainer').classList.remove('active');
-        }
-
-        function showPage(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            closeAll();
+            document.querySelectorAll('.modal, .sidebar, .overlay').forEach(el => el.classList.remove('active'));
         }
 
         function bnToEn(str) {
             const bn = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
             const en = ['0','1','2','3','4','5','6','7','8','9'];
+            str = String(str);
             for(let i=0; i<10; i++) str = str.replace(new RegExp(bn[i], 'g'), en[i]);
             return str;
         }
 
         async function loadData() {
+            const grid = document.getElementById('grid');
             try {
                 const res = await fetch(WEB_APP_URL);
                 const data = await res.json();
-                const headers = data[0];
+                
+                const headers = data[0]; // গুগল শিটের প্রথম সারি (Header)
                 const rows = data.slice(1);
                 let html = '';
-                let hasNotice = false;
+                let noticeFound = false;
 
                 rows.forEach(row => {
-                    if(!row[1]) return;
+                    if(!row[1]) return; // নাম না থাকলে বাদ
 
-                    if (row[0] && (row[0].trim() === 'নোটিশ' || row[0].toLowerCase().includes('notice'))) {
+                    // নোটিশ হ্যান্ডলিং
+                    if(row[0] === 'নোটিশ') {
                         document.getElementById('noticeMsg').innerText = row[1];
-                        document.getElementById('noticeTitle').innerText = row[0];
-                        hasNotice = true;
+                        noticeFound = true;
                         return;
                     }
 
-                    let img = 'https://img.icons8.com/fluency/96/police-badge.png';
-                    let extras = '';
-                    headers.forEach((h, i) => {
-                        let v = row[i] ? String(row[i]).trim() : '';
-                        if(String(h).includes('ছবি') && v.startsWith('http')) img = v;
-                        else if(i > 2 && v) extras += `<div class="info-item"><span>${h}</span><span class="val">${v}</span></div>`;
+                    // ডাইনামিক অতিরিক্ত তথ্য তৈরি
+                    let extraRows = '';
+                    headers.forEach((header, index) => {
+                        let value = row[index];
+                        // পদবী (0), নাম (1), মোবাইল (2) বা ছবি ছাড়া বাকি সব তথ্য এখানে আসবে
+                        if (index > 2 && value && !header.includes('ছবি')) {
+                            extraRows += `<div class="info-row"><span class="label">${header}</span><span class="value">${value}</span></div>`;
+                        }
                     });
 
-                    let enNum = bnToEn(String(row[2]));
+                    // ছবি হ্যান্ডলিং
+                    let profileImg = "https://img.icons8.com/fluency/96/police-badge.png";
+                    headers.forEach((h, i) => {
+                        if(h.includes('ছবি') && row[i] && row[i].startsWith('http')) profileImg = row[i];
+                    });
 
                     html += `
-                        <div class="p-card" data-en="${enNum}">
+                        <div class="p-card" data-en="${bnToEn(row[2])}">
                             <div class="p-header">
-                                <img src="${img}" class="p-img" onerror="this.src='https://img.icons8.com/fluency/96/Police-badge.png'">
-                                <div>
+                                <img src="${profileImg}" class="p-img" onerror="this.src='https://img.icons8.com/fluency/96/police-badge.png'">
+                                <div class="p-title-group">
                                     <h3>${row[1]}</h3>
-                                    <p style="color:var(--accent); font-weight:700;">${row[0]}</p>
+                                    <span class="rank-tag">${row[0]}</span>
                                 </div>
                             </div>
-                            <div class="p-info">
-                                <div class="info-item"><span>মোবাইল</span><span class="val">${row[2]}</span></div>
-                                ${extras}
+                            <div class="info-container">
+                                <div class="info-row"><span class="label">মোবাইল</span><span class="value">${row[2]}</span></div>
+                                ${extraRows}
                             </div>
-                            <a href="tel:${row[2]}" class="call-btn">📞 কল করুন</a>
+                            <div class="btn-row">
+                                <a href="tel:${row[2]}" class="btn btn-call"><i class="fa-solid fa-phone"></i> কল করুন</a>
+                                <a href="https://wa.me/88${bnToEn(row[2])}" class="btn btn-wa"><i class="fa-brands fa-whatsapp"></i> মেসেজ</a>
+                            </div>
                         </div>`;
                 });
 
                 document.getElementById('loader').style.display = 'none';
-                document.getElementById('grid').innerHTML = html;
-                if(hasNotice) document.getElementById('noticeBadge').style.display = 'block';
+                grid.innerHTML = html || "<p style='text-align:center'>কোনো তথ্য পাওয়া যায়নি।</p>";
+                if(noticeFound) document.getElementById('noticeBadge').style.display = 'block';
 
             } catch (e) {
-                // লজিক ঠিক রাখতে এরর হ্যান্ডলিং আগের মতোই রাখা হয়েছে, শুধু টেক্সট আপডেট হবে
-                document.getElementById('loader').innerHTML = "<span style='color:red'>লোড করতে ব্যর্থ হয়েছে!</span>";
+                document.getElementById('loader').innerHTML = "<p style='color:red; text-align:center'>সার্ভার সংযোগে ত্রুটি! পেজটি রিফ্রেশ করুন।</p>";
             }
         }
 
         function filter() {
-            let input = document.getElementById('q').value.toLowerCase();
-            let valEn = bnToEn(input);
-
+            let q = document.getElementById('q').value.toLowerCase();
+            let qEn = bnToEn(q);
             document.querySelectorAll('.p-card').forEach(c => {
-                let text = c.innerText.toLowerCase();
+                let txt = c.innerText.toLowerCase();
                 let enNum = c.getAttribute('data-en');
-                if (text.includes(input) || enNum.includes(valEn)) c.style.display = 'flex';
-                else c.style.display = 'none';
+                c.style.display = (txt.includes(q) || enNum.includes(qEn)) ? 'flex' : 'none';
             });
         }
 
-        loadData();
+        window.onload = loadData;
     </script>
 </body>
 </html>
