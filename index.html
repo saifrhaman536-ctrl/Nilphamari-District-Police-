@@ -569,7 +569,7 @@
             if(!input) return;
             chatBox.innerHTML += `<div class="chat-bubble user-msg">${input}</div>`;
             document.getElementById('aiInput').value = '';
-            let response = "দুঃখিত, আমি বিষয়টি বুঝতে পারিনি। সঠিক নাম বা পদবী লিখুন।";
+            let response = "দুঃখিত, আমি বিষয়টি বুঝতে পারিনি। সঠিক নাম বা পদবী লিখুন। বিঃদ্রঃ অনুগ্রহ করে পদবী নাম্বার বাংলা সংখ্যয় লিখুন।";
             const found = globalData.find(row => row[1].toLowerCase().includes(input) || row[0].toLowerCase().includes(input));
             if(found) response = `তথ্য পেয়েছি: <b>${found[1]}</b> (${found[0]}), মোবাইল: ${found[2]}।`;
             setTimeout(() => {
