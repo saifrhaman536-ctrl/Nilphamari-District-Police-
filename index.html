@@ -12,6 +12,8 @@
             --primary: #1e40af;
             --primary-light: #3b82f6;
             --fb-color: #1877F2;
+            --ai-color: #8b5cf6;
+            --install-color: #f59e0b;
             --bg: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #0f172a;
@@ -80,6 +82,14 @@
             box-shadow: 0 8px 15px rgba(24, 119, 242, 0.3); text-decoration: none; transition: 0.3s;
         }
 
+        .ai-fab {
+            position: fixed; bottom: 85px; right: 20px; 
+            width: 50px; height: 50px; background: var(--ai-color);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 22px; z-index: 1002;
+            box-shadow: 0 8px 15px rgba(139, 92, 246, 0.3); cursor: pointer; transition: 0.3s;
+        }
+
         .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 185px 15px 80px; transition: padding 0.3s; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
 
@@ -90,7 +100,6 @@
         .p-card { background: var(--card-bg); border-radius: 22px; padding: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); display: flex; flex-direction: column; transition: 0.3s; position: relative; overflow: hidden; height: 100%; }
         .p-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
         
-        /* প্রোফাইল ইমেজ/আইকন স্টাইল */
         .p-img-container { width: 75px; height: 75px; border-radius: 18px; background: #f1f5f9; border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-shrink: 0; }
         .p-img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
         .p-img-icon { font-size: 40px; color: var(--primary-light); }
@@ -119,9 +128,12 @@
         .sidebar.active { left: 0; }
         .menu-item { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 12px; cursor: pointer; margin-bottom: 8px; font-weight: 700; color: var(--text-main); text-decoration: none; font-size: 0.95rem; position: relative; }
         .menu-item:hover { background: var(--bg); color: var(--primary); }
+        
+        .menu-action { background: var(--install-color); color: white; border: none; }
+        .menu-action:hover { background: #d97706; color: white; }
 
         .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); display: none; z-index: 2000; }
-        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92%; max-width: 450px; background: var(--card-bg); z-index: 2100; padding: 25px; border-radius: 25px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.2); max-height: 85vh; overflow-y: auto; }
+        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92%; max-width: 450px; background: var(--card-bg); z-index: 2100; padding: 25px; border-radius: 25px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.2); max-height: 85vh; overflow-y: hidden; }
         .modal.active, .overlay.active { display: block; }
 
         .dev-card-premium { background: var(--dev-gradient); border-radius: 20px; padding: 30px 20px; color: white; text-align: center; position: relative; overflow: hidden; }
@@ -132,6 +144,24 @@
         .dev-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; }
         .dev-tag { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
         .dev-desc { margin-top: 20px; font-size: 0.9rem; line-height: 1.6; color: rgba(255,255,255,0.9); font-style: italic; }
+        
+        .chat-container { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; max-height: 300px; overflow-y: auto;}
+        .chat-bubble { padding: 10px 15px; border-radius: 15px; font-size: 0.9rem; max-width: 85%; line-height: 1.4; }
+        .ai-msg { background: var(--primary); color: white; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user-msg { background: var(--border); color: var(--text-main); align-self: flex-end; border-bottom-right-radius: 2px; }
+
+        .imp-list { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; max-height: 500px; overflow-y: auto; padding-right: 8px; }
+        .imp-group-header { background: var(--primary-light); color: white; padding: 6px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; margin-top: 10px; display: flex; align-items: center; gap: 8px; }
+        .imp-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--bg); border-radius: 12px; border: 1px solid var(--border); }
+        .imp-info { display: flex; flex-direction: column; max-width: 75%; }
+        .imp-label { font-size: 0.95rem; font-weight: 800; color: var(--text-main); }
+        .imp-num { font-size: 0.85rem; color: var(--primary); font-weight: 700; }
+        .imp-call { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+
+        .notice-item { background: var(--bg); padding: 15px; border-radius: 16px; border-left: 5px solid var(--primary); margin-bottom: 12px; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .notice-badge-new { position: absolute; top: 8px; right: 10px; background: #ef4444; color: white; font-size: 0.65rem; padding: 3px 8px; border-radius: 10px; font-weight: 800; }
+        .prev-header { font-size: 0.85rem; font-weight: 800; color: var(--primary); margin: 20px 0 10px; display: flex; align-items: center; gap: 8px; }
+        .prev-header::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
         @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
@@ -146,7 +176,7 @@
             <div class="brand-name" id="brandTitle">জেলা পুলিশ নীলফামারী</div>
         </div>
         <div class="top-actions">
-            <div onclick="toggleLang()" class="icon-btn" title="Change Language"><i class="fa-solid fa-globe"></i></div>
+            <div onclick="toggleLang()" class="icon-btn" title="Change Language"><i class="fa-solid fa-language"></i></div>
             <div onclick="location.reload()" class="icon-btn"><i class="fa-solid fa-rotate-right"></i></div>
             <div onclick="toggleDarkMode()" class="icon-btn"><i class="fa-solid fa-moon" id="themeIcon"></i></div>
         </div>
@@ -170,22 +200,25 @@
             <h2 style="color: orange; font-weight:800;" id="menuTitle">জেলা পুলিশ নীলফামারী</h2>
             <div onclick="toggleSidebar()" class="icon-btn" style="color:var(--text-muted)"><i class="fa-solid fa-xmark"></i></div>
         </div>
-        
         <div class="menu-item" onclick="switchMode('home')"><i class="fa-solid fa-house"></i> <span id="mHome">সকল তথ্য</span></div>
         <div class="menu-item" onclick="switchMode('dashboard')"><i class="fa-solid fa-user-tie"></i> <span id="mDash">পদবী সমূহ</span></div>
-        <div class="menu-item" onclick="openModal('noticeModal')">
-            <i class="fa-solid fa-bell"></i> <span id="mNot">নোটিশবোর্ড</span>
-            <span id="noticeBadge" style="display:none; position:absolute; top:12px; right:15px; width:8px; height:8px; background:#ef4444; border-radius:50%;"></span>
-        </div>
+        <div class="menu-item" onclick="openModal('impModal')"><i class="fa-solid fa-phone-volume"></i> <span id="mImp">গুরুত্বপূর্ণ নম্বর</span></div>
+        <div class="menu-item" onclick="openModal('noticeModal')"><i class="fa-solid fa-bell"></i> <span id="mNot">নোটিশবোর্ড</span><span id="noticeBadge" style="display:none; position:absolute; top:12px; right:15px; width:8px; height:8px; background:#ef4444; border-radius:50%;"></span></div>
         <a href="https://forms.gle/9VwzxkWjVrLedCSN8" target="_blank" class="menu-item"><i class="fa-solid fa-paper-plane"></i> <span id="mSugg">পরামর্শ ও অভিযোগ</span></a>
         <div class="menu-item" onclick="openModal('termsModal')"><i class="fa-solid fa-shield-halved"></i> <span id="mTerms">শর্তাবলী ও নীতিমালা</span></div>
         <div class="menu-item" onclick="openModal('devModal')"><i class="fa-solid fa-code"></i> <span id="mDev">ডেভেলপার</span></div>
-                <div style="color: orange; margin-top: 20px; font-size: 0.7rem; opacity: 0.6;">• জেলা পুলিশ নীলফামারী | সর্বস্বত্ব সংরক্ষিত | 2026•</div>
+                
+        <div class="menu-item menu-action" id="installBtn" style="display:none;" onclick="installApp()"><i class="fa-solid fa-download"></i> <span id="mInstall">অ্যাপ ইন্সটল করুন</span></div>
+        <div class="menu-item" onclick="shareApp()"><i class="fa-solid fa-share-nodes"></i> <span id="mShare">অ্যাপ শেয়ার করুন</span></div>
+
+        <div style=" margin-top: 20px; font-size: 0.7rem; opacity: 0.6;">• জেলা পুলিশ নীলফামারী | সর্বস্বত্ব সংরক্ষিত | 2026•</div>
+       <div style=" margin-top: 20px; font-size: 0.7rem; opacity: 0.6;"><strong>• সর্বশেষ আপডেট:</strong> 05/03/2026 | 19:10am</div>
     </div>
 
     <div class="overlay" id="overlay" onclick="closeAll()"></div>
-
-    <a href="https://www.facebook.com/share/1FibQ9kmYf/" target="_blank" class="fb-fab"><i class="fa-brands fa-facebook-f"></i></a>
+    
+<div class="fb-fab" onclick="openModal('socialModal')"><i class="fa-solid fa-globe"></i></div>
+    <div class="ai-fab" onclick="openModal('aiModal')"><i class="fa-solid fa-robot"></i></div>
 
     <main class="container">
         <div id="dashboardMenu"></div>
@@ -196,23 +229,54 @@
             </div>
         </div>
     </main>
+    
+    <div class="modal" id="socialModal">
+        <h3 style="color: var(--primary); font-weight: 800; border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 15px;"><i class="fa-solid fa-hashtag"></i> <span id="socialTitle">সোশ্যাল মিডিয়া ও ওয়েবসাইট</span></h3>
+        <div class="imp-list">
+            <a href="https://https://www.facebook.com/share/16XNR1dAry/" target="_blank" class="menu-item" style="background: var(--bg);"><i class="fa-brands fa-facebook" style="color:#1877F2;"></i> <span id="sFB1">জেলা পুলিশ ফেসবুক পেজ</span></a>
+            <a href="https://www.facebook.com/BangladeshPoliceOfficialPage" target="_blank" class="menu-item" style="background: var(--bg);"><i class="fa-brands fa-facebook-f" style="color:#1877F2;"></i> <span id="sFB2">বাংলাদেশ পুলিশ ফেসবুক পেজ</span></a>
+            <a href="https://www.police.gov.bd/" target="_blank" class="menu-item" style="background: var(--bg);"><i class="fa-solid fa-globe" style="color:var(--primary);"></i> <span id="sWeb">অফিসিয়াল ওয়েবসাইট</span></a>
+        </div>
+        <button class="btn btn-call" style="width:100%; margin-top: 20px;" onclick="closeAll()">বন্ধ করুন</button>
+    </div>
 
-    <div class="modal" id="noticeModal">
-        <h3 style="color: var(--primary); font-weight: 800; margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 10px;" id="notTitle">অফিসিয়াল ঘোষণা</h3>
-        <div id="noticeMsg" style="line-height: 1.7; font-weight: 500;">কোনো নতুন নোটিশ নেই।</div>
+    <div class="modal" id="aiModal">
+        <h3 style="color: var(--ai-color); font-weight: 800; border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 15px;"><i class="fa-solid fa-robot"></i> AI সহকারী জেলা পুলিশ নীলফামারী</h3>
+        <div id="chatBox" class="chat-container">
+            <div class="chat-bubble ai-msg"> আসসালামু আলাইকুম! আমি নীলফামারী জেলা পুলিশের স্মার্ট সহকারী। আমি আপনাকে তথ্য খুঁজে পেতে সাহায্য করতে পারি। আপনি কার নম্বর খুঁজছেন?</div>
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 8px;">
+            <input type="text" id="aiInput" placeholder="এখানে লিখুন..." style="flex:1; padding:12px; border-radius:12px; border:1px solid var(--border); outline:none;">
+            <button onclick="handleAI()" class="btn btn-call" style="width: 50px; height: 50px; border-radius: 12px; padding:0;"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+        <button class="btn" style="width:100%; margin-top: 15px; background: var(--border); color: var(--text-main);" onclick="closeAll()">বন্ধ করুন</button>
+    </div>
+
+    <div class="modal" id="impModal">
+        <h3 style="color: var(--primary); font-weight: 800; border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 15px;"><i class="fa-solid fa-phone-volume"></i> <span id="impTitle">জরুরি যোগাযোগ</span></h3>
+        <div class="imp-list" id="dynamicImpList"></div>
         <button class="btn btn-call" style="width:100%; margin-top: 25px;" onclick="closeAll()">বন্ধ করুন</button>
     </div>
 
-    <div class="modal" id="imgModal"><img id="previewImg" style="width:100%; border-radius:15px;" src=""><button class="btn btn-call" style="margin-top:15px; width:100%" onclick="closeAll()">Close</button></div>
+    <div class="modal" id="noticeModal">
+        <h3 style="color: var(--primary); font-weight: 800; margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 10px;">নোটিশবোর্ড</h3>
+        <div id="currentNotice" style="line-height: 1.7; font-weight: 700; color: var(--text-main);">কোনো নতুন নোটিশ নেই।</div>
+        <div id="prevNoticeContainer" style="display:none;">
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid var(--border);">
+            <p style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">পূর্ববর্তী নোটিশ:</p>
+            <div id="prevNotice" class="prev-notice-box"></div>
+        </div>
+        <button class="btn btn-call" style="width:100%; margin-top: 25px;" onclick="closeAll()">বন্ধ করুন</button>
+    </div>
 
     <div class="modal" id="devModal" style="padding:0; overflow:hidden; border-radius:30px;">
         <div class="dev-card-premium">
             <div class="dev-img-box"><i class="fa-solid fa-user-tie"></i></div>
             <h2 class="dev-name">মোঃ মেহেদী হাসান</h2>
-            <span class="dev-tag">IT Operations & Software Architect</span>
+            <span class="dev-tag">it operations & software architect</span>
             <p class="dev-desc">"জেলা পুলিশ নীলফামারীর অভ্যন্তরীণ যোগাযোগ ব্যবস্থা উন্নত করার লক্ষ্যে তৈরি করা হয়েছে। আধুনিক প্রযুক্তি ব্যবহার করে সেবাকে আরও গতিশীল করাই আমাদের লক্ষ্য।"</p>
             <p><strong> Version: 2.0.1</strong></p>
-                <p>Smart Directory Edition Phone Book</p>
+                <p><strong>Smart Directory Edition Phone Book</strong></p>
             </div>
                 <div style="margin-top: 15px; display: flex; justify-content: center; gap: 15px;">©জেলা পুলিশ নীলফামারী | সর্বস্বত্ব সংরক্ষিত। ২০২৬•</div>
             <div style="margin-top: 15px; display: flex; justify-content: center; gap: 15px;">
@@ -234,6 +298,7 @@
             
             <p style="font-weight: 700; color: var(--primary); margin-bottom: 5px;">৩. বিধি-নিষেধ:</p>
             <p style="margin-bottom: 12px;">প্রদর্শিত ফোন নম্বর বা তথ্য কোনো বাণিজ্যিক উদ্দেশ্যে, হয়রানিমূলক কাজে বা সোশ্যাল মিডিয়ায় অননুমোদিত প্রচারে ব্যবহার করা ডিজিটাল নিরাপত্তা আইনের পরিপন্থী।</p>
+            <p>🔊 প্রদর্শিত তথ্য অপব্যবহার করা দণ্ডনীয় অপরাধ।</p>
             
             <p style="font-weight: 700; color: var(--primary); margin-bottom: 5px;">৪. দায়বদ্ধতা:</p>
             <p style="margin-bottom: 12px;">তথ্যের নির্ভুলতা বজায় রাখতে সর্বোচ্চ চেষ্টা করা হয়েছে। তবে কোনো প্রকার অনিচ্ছাকৃত ভুল বা নম্বর পরিবর্তনের জন্য কর্তৃপক্ষ দায়ী নয়। প্রয়োজনে সংশোধনের জন্য যোগাযোগ করুন।</p>
@@ -241,16 +306,10 @@
             <p style="font-weight: 700; color: var(--primary); margin-bottom: 5px;">৫. কুকিজ ও পারমিশন:</p>
             <p style="margin-bottom: 12px;">সরাসরি কল করার জন্য 'Phone Access' এবং কন্টাক্ট সেভ করার জন্য 'Storage Write Permission' এর প্রয়োজন হতে পারে।</p>
         </div>
-
-                <br>
-                <h2>সিস্টেমের কার্যকারিতা</h2>
-                <hr style="margin: 15px 0; opacity: 0.1;">
-                <p>১. <strong>ডাইনামিক ডিরেক্টরি:</strong> গুগল শিটে তথ্য যোগ করার সাথে সাথে এখানে আপডেট হয়।</p>
-                <p>২. <strong>স্মার্ট নোটিফিকেশন:</strong> অ্যাডমিন প্যানেল থেকে যেকোনো নোটিশ সরাসরি অ্যাপে পাঠানো সম্ভব।</p>
-                <p>৩. <strong>বাংলা সুরক্ষা:</strong> উন্নত রেন্ডারিং ইঞ্জিন ব্যবহার করা হয়েছে যেন বাংলা লেখা না ভাঙে।</p>
-                <li><strong>অফলাইন ফিলিং:</strong> একবার লোড হলে ইন্টারনেটে ধীরগতি থাকলেও সার্চ কাজ করবে।</li>
-                    <li><strong>ওয়ান ট্যাপ কল:</strong> নাম্বারে চাপ দিলেই কল যাবে।</li>
-                    <li><strong>অটো সিঙ্ক:</strong> ডাটাবেজ আপডেট হওয়ার সাথে সাথে অ্যাপ আপডেট হবে।</li>
+        
+                <li><strong>ডাইনামিক ডিরেক্টরি:</strong> গুগল শিটে তথ্য যোগ করার সাথে সাথে এখানে আপডেট হয়।<li>
+                    <li><strong>অফলাইন ফিলিং:</strong> একবার লোড হলে ইন্টারনেটে ধীরগতি থাকলেও সার্চ কাজ করবে।</li>
+                    <li><strong>স্মার্ট এআই:</strong> এআই এর সাহায্যে খুব সহজেই তথ্য অনুসন্ধান বা খুঁজে পাওয়া যায়।</li>
                 
                 <div style="margin-top: 20px; font-size: 0.8rem; opacity: 0.6;">•জেলা পুলিশ নীলফামারী | সর্বস্বত্ব সংরক্ষিত। 2026•</div>
 
@@ -259,6 +318,7 @@
 
     <script>
         const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxGSffjMnTMg_i_Mp0vJCsbFSTp3KFlnjGIVnG2c5Awau9HYgsEJ9Cwpq-AlEzm5dFw/exec';
+        const APP_SHARE_URL = 'https://saifrhaman536-ctrl.github.io/Nilphamari-District-Police-/';
         
         let globalData = [];
         let globalHeaders = [];
@@ -267,35 +327,26 @@
         let currentLang = 'bn';
 
         const i18n = {
-            bn: {
-                brand: "জেলা পুলিশ নীলফামারী", menu: "জেলা পুলিশ নীলফামারী", home: "সকল তথ্য ", dash: "পদবী সমূহ", noti: "নোটিশবোর্ড",
-                sugg: "পরামর্শ ও অভিযোগ", terms: "শর্তাবলী ও নীতি", dev: "ডেভেলপার", 
-                search: "নাম বা পদবী দিয়ে খুঁজুন...", load: "তথ্য লোড হচ্ছে, দয়া করে অপেক্ষা করুন...", call: "কল করুন", msg: "মেসেজ করুন",
-                numErr: "অসম্পূর্ণ নাম্বার!"
-            },
-            en: {
-                brand: "Nilphamari District Police", menu: "District Police Nilphamari ", home: "All Contacts", dash: "Titles ", noti: "Notice Board",
-                sugg: "Feedback", terms: "Privacy Policy", dev: "Developer", 
-                search: "Search by Name or Rank...", load: "Loading information, please wait...", call: "Call", msg: "Message",
-                numErr: "Invalid Number!"
-            }
+            bn: { brand: "জেলা পুলিশ নীলফামারী", menu: "জেলা পুলিশ নীলফামারী", home: "সকল তথ্য", dash: "পদবী সমূহ", imp: "গুরুত্বপূর্ণ নম্বর", impTitle: "জরুরি যোগাযোগ", noti: "নোটিশবোর্ড", sugg: "পরামর্শ ও অভিযোগ", terms: "শর্তাবলী ও নীতিমালা", dev: "ডেভেলপার", search: "নাম বা পদবী দিয়ে খুঁজুন...", load: "তথ্য লোড হচ্ছে...", call: "কল করুন", msg: "মেসেজ করুন", numErr: "অসম্পূর্ণ নাম্বার!", share: "অ্যাপ শেয়ার করুন", install: "অ্যাপ ইন্সটল করুন" },
+            en: { brand: "Nilphamari District Police", menu: "District Police Nilphamari", home: "All Contacts", dash: "Ranks", imp: "Important", impTitle: "Emergency Contacts", noti: "Notice Board", sugg: "Feedback", terms: "Privacy Policy", dev: "Developer", search: "Search Name/Rank...", load: "Loading...", call: "Call", msg: "Message", numErr: "Invalid Number!", share: "Share App", install: "Install App" }
         };
 
         function toggleLang() { setLang(currentLang === 'bn' ? 'en' : 'bn'); }
-
         function setLang(lang) {
             currentLang = lang;
-            const t = i18n[lang];
-            document.getElementById('brandTitle').innerText = t.brand;
-            document.getElementById('menuTitle').innerText = t.menu;
-            document.getElementById('mHome').innerText = t.home;
-            document.getElementById('mDash').innerText = t.dash;
-            document.getElementById('mNot').innerText = t.noti;
-            document.getElementById('mSugg').innerText = t.sugg;
-            document.getElementById('mTerms').innerText = t.terms;
-            document.getElementById('mDev').innerText = t.dev;
-            document.getElementById('q').placeholder = t.search;
-            document.getElementById('loadText').innerText = t.load;
+            document.getElementById('brandTitle').innerText = i18n[lang].brand;
+            document.getElementById('menuTitle').innerText = i18n[lang].menu;
+            document.getElementById('mHome').innerText = i18n[lang].home;
+            document.getElementById('mDash').innerText = i18n[lang].dash;
+            document.getElementById('mImp').innerText = i18n[lang].imp;
+            document.getElementById('impTitle').innerText = i18n[lang].impTitle;
+            document.getElementById('mNot').innerText = i18n[lang].noti;
+            document.getElementById('mSugg').innerText = i18n[lang].sugg;
+            document.getElementById('mTerms').innerText = i18n[lang].terms;
+            document.getElementById('mDev').innerText = i18n[lang].dev;
+            document.getElementById('q').placeholder = i18n[lang].search;
+            document.getElementById('mShare').innerText = i18n[lang].share;
+            document.getElementById('mInstall').innerText = i18n[lang].install;
             renderUI();
         }
 
@@ -332,26 +383,94 @@
                 const data = await res.json();
                 globalHeaders = data[0];
                 const rows = data.slice(1);
-                let noticeFound = false;
+                
+                globalData = []; 
+                let notices = [];
 
                 rows.forEach(row => {
                     if(!row[1]) return;
                     if(row[0] === 'নোটিশ') {
-                        document.getElementById('noticeMsg').innerText = row[1];
-                        document.getElementById('scrollingNotice').innerText = "Notice: " + row[1];
-                        document.getElementById('tickerContainer').style.display = 'block';
-                        noticeFound = true;
+                        notices.push(row[1]);
                         return;
                     }
                     globalData.push(row);
                 });
 
+                // Update Notice System
+                if(notices.length > 0) {
+                    const latestNotice = notices[notices.length - 1];
+                    document.getElementById('currentNotice').innerText = latestNotice;
+                    document.getElementById('scrollingNotice').innerText = "Update: " + latestNotice;
+                    document.getElementById('tickerContainer').style.display = 'block';
+                    document.getElementById('noticeBadge').style.display = 'block';
+
+                    // Local Storage based Previous Notice handling
+                    const savedNotice = localStorage.getItem('last_notice');
+                    if(savedNotice && savedNotice !== latestNotice) {
+                        document.getElementById('prevNoticeContainer').style.display = 'block';
+                        document.getElementById('prevNotice').innerText = savedNotice;
+                    }
+                    localStorage.setItem('last_notice', latestNotice);
+                }
+
                 document.getElementById('loader').style.display = 'none';
+                updateImportantNumbers(); 
                 renderUI();
-                if(noticeFound) document.getElementById('noticeBadge').style.display = 'block';
             } catch (e) {
                 document.getElementById('loader').innerHTML = "Server Error!";
             }
+        }
+
+        function updateImportantNumbers() {
+            const listContainer = document.getElementById('dynamicImpList');
+            let html = `
+            <div class="imp-group-header"><i class="fa-solid fa-star"></i> জরুরি সেবা</div>
+            <div class="imp-row"><div class="imp-info"><span class="imp-label">জাতীয় জরুরি সেবা</span><span class="imp-num">৯৯৯</span></div><a href="tel:999" class="imp-call"><i class="fa-solid fa-phone"></i></a></div>`;
+            
+            const grouping = [
+                { title: "পুলিশ সুপার অফিস", keys: ["পুলিশ সুপার", "অতিরিক্ত পুলিশ সুপার"] },
+                { title: "আর আই অফিস", keys: ["আর আই"] },
+                { title: "মেজর অফিস", keys: ["ফোর্স", "মেজর", "এলসি মেজর অফিস"] },
+                { title: "রিজার্ভ অফিস", keys: ["আরও ওয়ান", "RO 1","রিজার্ভ অফিস"] },
+                { title: "পুলিশ লাইন্স ম্যাচ", keys: ["ম্যাচ", "ম্যাচ ম্যানেজার", "ম্যাচ সহকারী"] }
+            ];
+
+            let categorizedData = {};
+            grouping.forEach(g => categorizedData[g.title] = []);
+
+            globalData.forEach(row => {
+                const rank = String(row[0] || "").toLowerCase();
+                const extra = row.slice(3).join(" ").toLowerCase();
+                const combined = rank + " " + extra;
+                const excludeKeywords = ["থানা", "ফাঁড়ি", "তদন্ত কেন্দ্র", "বিট"];
+                const isExcluded = excludeKeywords.some(k => combined.includes(k.toLowerCase()));
+
+                if(!isExcluded) {
+                    for (let group of grouping) {
+                        if (group.keys.some(k => combined.includes(k.toLowerCase()))) {
+                            categorizedData[group.title].push(row);
+                            break;
+                        }
+                    }
+                }
+            });
+
+            for (let category in categorizedData) {
+                if (categorizedData[category].length > 0) {
+                    html += `<div class="imp-group-header"><i class="fa-solid fa-folder-open"></i> ${category}</div>`;
+                    categorizedData[category].forEach(row => {
+                        html += `
+                        <div class="imp-row">
+                            <div class="imp-info">
+                                <span class="imp-label">${row[0]} (${row[1]})</span>
+                                <span class="imp-num">${row[2]}</span>
+                            </div>
+                            <a href="tel:${row[2]}" class="imp-call"><i class="fa-solid fa-phone"></i></a>
+                        </div>`;
+                    });
+                }
+            }
+            listContainer.innerHTML = html;
         }
 
         function generateCard(row) {
@@ -362,24 +481,13 @@
                     extraRows += `<div class="info-row"><span class="label">${header}</span><span class="value">${value}</span></div>`;
                 }
             });
-
-            // ফটো এবং ডিফল্ট আইকন লজিক
-            let profileImgUrl = ""; 
-            globalHeaders.forEach((h, i) => { if(h.includes('ছবি') && row[i] && row[i].startsWith('http')) profileImgUrl = row[i]; });
-
-            let mediaHtml = profileImgUrl ? 
-                `<img src="${profileImgUrl}" class="p-img" onclick="openModal('imgModal'); document.getElementById('previewImg').src='${profileImgUrl}'" onerror="this.parentElement.innerHTML='<i class=\'fa-solid fa-user-tie p-img-icon\'></i>'">` : 
-                `<i class="fa-solid fa-user-tie p-img-icon"></i>`;
-
-            // নাম্বার ভ্যালিডেশন চেক
             let numOnly = bnToEn(String(row[2] || "")).replace(/[^0-9]/g, '');
-            let warningHtml = (numOnly.length > 0 && numOnly.length < 11) ? 
-                `<div class="num-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${i18n[currentLang].numErr}</div>` : '';
+            let warningHtml = (numOnly.length > 0 && numOnly.length < 11) ? `<div class="num-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${i18n[currentLang].numErr}</div>` : '';
 
             return `
                 <div class="p-card" data-en="${bnToEn(row[2])}">
                     <div class="p-header">
-                        <div class="p-img-container">${mediaHtml}</div>
+                        <div class="p-img-container"><i class="fa-solid fa-user-tie p-img-icon"></i></div>
                         <div class="p-title-group">
                             <h3>${row[1]}</h3>
                             <span class="rank-tag">${row[0]}</span>
@@ -420,16 +528,7 @@
                 });
 
                 if(activeRank) {
-                    const groups = {};
-                    globalData.filter(row => row[0].includes(activeRank)).forEach(row => {
-                        let loc = row[3] || 'General';
-                        if(!groups[loc]) groups[loc] = [];
-                        groups[loc].push(row);
-                    });
-                    for(const loc in groups) {
-                        htmlBuffer += `<div class="group-header" style="grid-column:1/-1; background:var(--primary); color:white; padding:10px 15px; border-radius:10px; margin:20px 0 10px;"><i class="fa-solid fa-location-dot"></i> ${loc}</div>`;
-                        groups[loc].forEach(row => { htmlBuffer += generateCard(row); });
-                    }
+                    globalData.filter(row => row[0].includes(activeRank)).forEach(row => { htmlBuffer += generateCard(row); });
                     grid.innerHTML = htmlBuffer;
                 }
             }
@@ -456,12 +555,55 @@
         function shareInfo(name, phone, rank) {
             const text = `${name}\n${rank}\n${phone}\n-- Nilphamari District Police`;
             if (navigator.share) navigator.share({ title: 'Contact Info', text: text });
-            else alert("Copied: " + text);
+            else { navigator.clipboard.writeText(text); alert("তথ্য কপি করা হয়েছে!"); }
         }
 
         function switchMode(mode) {
             viewMode = mode; activeRank = null; closeAll(); renderUI();
             window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        function handleAI() {
+            const input = document.getElementById('aiInput').value.trim().toLowerCase();
+            const chatBox = document.getElementById('chatBox');
+            if(!input) return;
+            chatBox.innerHTML += `<div class="chat-bubble user-msg">${input}</div>`;
+            document.getElementById('aiInput').value = '';
+            let response = "দুঃখিত, আমি বিষয়টি বুঝতে পারিনি। সঠিক নাম বা পদবী লিখুন।";
+            const found = globalData.find(row => row[1].toLowerCase().includes(input) || row[0].toLowerCase().includes(input));
+            if(found) response = `তথ্য পেয়েছি: <b>${found[1]}</b> (${found[0]}), মোবাইল: ${found[2]}।`;
+            setTimeout(() => {
+                chatBox.innerHTML += `<div class="chat-bubble ai-msg">${response}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 600);
+        }
+
+        function shareApp() {
+            const shareData = { 
+                title: 'Nilphamari Police Phonebook', 
+                text: 'নীলফামারী জেলা পুলিশের ডিজিটাল ডিরেক্টরি। আপনার প্রয়োজনীয় যোগাযোগ এখন এক ক্লিকেই।', 
+                url: APP_SHARE_URL 
+            };
+            if (navigator.share) navigator.share(shareData);
+            else { 
+                navigator.clipboard.writeText(APP_SHARE_URL); 
+                alert("লিংক কপি করা হয়েছে: " + APP_SHARE_URL); 
+            }
+        }
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBtn').style.display = 'flex';
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt = null;
+                document.getElementById('installBtn').style.display = 'none';
+            } else alert("ব্রাউজার মেনু থেকে Install app ব্যবহার করুন।");
         }
 
         window.onload = loadData;
